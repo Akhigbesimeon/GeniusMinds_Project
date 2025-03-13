@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeniusMinds - Register</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-box active" id="register-form">
+            <form>
+                <h2>Register</h2>
+                <input type="text" name="fullname" placeholder="Full Name" required>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <select name="userType" required>
+                    <option value="" disabled selected class="placeholder">Select a Role</option>
+                    <option value="Student">Student</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Educator">Educator</option>
+                </select>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit" name="register">Register</button>
+                <p>Already have an account? <a href="#" onclick="showForm('login-form')">Login</a></p>
+            </form>
+        </div>
+    
+        <div class="form-box" id="login-form">
+            <form>
+                <h2>Login</h2>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <select id="login-role" name="role" required>
+                    <option value="" disabled selected class="placeholder">Select a Role</option>
+                    <option value="student">Student</option>
+                    <option value="parent">Parent</option>
+                    <option value="educator">Educator</option>
+                </select>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit" name="login">Login</button>
+                <p>Don't have an account? <a href="#" onclick="showForm('register-form')">Register</a></p>
+            </form>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+
