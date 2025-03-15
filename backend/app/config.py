@@ -18,5 +18,6 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
 
-    # CORS settings
+    # CORS settings - Update these according to your frontend URL
     CORS_HEADERS = 'Content-Type'
+    CORS_ORIGINS = ["http://127.0.0.1:5500", "http://localhost:5500"]  # Add your frontend URL
