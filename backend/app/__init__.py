@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from .config import Config
 import pymysql
+from datetime import datetime
 
 # Replace MySQLdb with PyMySQL
 pymysql.install_as_MySQLdb()
@@ -16,8 +17,14 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
-    # Initialize CORS
-    CORS(app)
+    # Initialize CORS with settings
+    CORS(app, resources={
+        r"/*": {
+            "origins": app.config['CORS_ORIGINS'],
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"]
+        }
+    })
 
     # Initialize Flask extensions
     db.init_app(app)
@@ -38,7 +45,7 @@ def create_app(config_class=Config):
             'documentation': '/api/docs',
             'health_check': '/api/health',
             'current_user': 'Miranics',
-            'server_time': '2025-03-15 14:48:57'
+            'server_time': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         })
 
     # Create database tables
