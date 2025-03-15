@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+    <div class="container">
+        <div id="start-screen">
+            <h1>Take the Quiz!</h1>
+            <button id="start-btn">Start Quiz</button>
+        </div>
+
+        <div id="quiz-container" class="hidden">
+            <h1>Math Quiz</h1>
+            <form id="quiz-form">
+                <div class="question" id="q1">
+                    <p>1. What is 5 + 3?</p>
+                    <label><input type="radio" name="q1" value="7"> 7</label>
+                    <label><input type="radio" name="q1" value="8"> 8</label>
+                    <label><input type="radio" name="q1" value="9"> 9</label>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+
+                <div class="question hidden" id="q2">
+                    <p>2. What is 12 ÷ 4?</p>
+                    <label><input type="radio" name="q2" value="2"> 2</label>
+                    <label><input type="radio" name="q2" value="3"> 3</label>
+                    <label><input type="radio" name="q2" value="4"> 4</label>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+
+                <div class="question hidden" id="q3">
+                    <p>3. What is 15 × 2?</p>
+                    <label><input type="radio" name="q3" value="30"> 30</label>
+                    <label><input type="radio" name="q3" value="25"> 25</label>
+                    <label><input type="radio" name="q3" value="20"> 20</label>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+
+                <div class="question hidden" id="q4">
+                    <p>4. What is 50 - 15?</p>
+                    <label><input type="radio" name="q4" value="40"> 40</label>
+                    <label><input type="radio" name="q4" value="35"> 35</label>
+                    <label><input type="radio" name="q4" value="25"> 25</label>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+
+                <div class="question hidden" id="q5">
+                    <p>5. What is 9 × 9?</p>
+                    <label><input type="radio" name="q5" value="72"> 72</label>
+                    <label><input type="radio" name="q5" value="81"> 81</label>
+                    <label><input type="radio" name="q5" value="99"> 99</label>
+                    <button type="button" id="submit-btn">Submit Quiz</button>
+                </div>
+            </form>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
+
+
+
