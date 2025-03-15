@@ -3,6 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from .config import Config
+import pymysql
+
+# Replace MySQLdb with PyMySQL
+pymysql.install_as_MySQLdb()
 
 # Initialize extensions
 db = SQLAlchemy()
