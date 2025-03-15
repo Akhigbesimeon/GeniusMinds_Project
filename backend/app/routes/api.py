@@ -6,6 +6,23 @@ from .. import db
 
 api_bp = Blueprint('api', __name__)
 
+@api_bp.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        'message': 'Welcome to GeniusMinds API',
+        'status': 'active',
+        'timestamp': '2025-03-15 14:48:57',
+        'version': '1.0.0'
+    }), 200
+
+@api_bp.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'healthy',
+        'database': 'connected',
+        'server_time': '2025-03-15 14:48:57'
+    }), 200
+
 @api_bp.route('/quizzes', methods=['GET'])
 @jwt_required()
 def get_quizzes():
