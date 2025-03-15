@@ -4,12 +4,10 @@ function showForm(formId) {
 }
 
 function showForm(formId) {
-    // Hide all form boxes
     document.querySelectorAll('.form-box').forEach(function(formBox) {
         formBox.classList.remove('active');
     });
 
-    // Show the selected form box
     document.getElementById(formId).classList.add('active');
 }
 
@@ -18,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const registerForm = document.querySelector("#register-form form");
     const loginForm = document.querySelector("#login-form form");
 
-    // Handle Registration Form Submission
     registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         
