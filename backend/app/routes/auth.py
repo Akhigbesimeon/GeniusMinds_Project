@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token
 from ..models.user import User
 from .. import db
 
@@ -7,43 +7,55 @@ auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
-    data = request.get_json()
-    
-    if User.query.filter_by(username=data['username']).first():
-        return jsonify({'error': 'Username already exists'}), 409
+    try:
+        data = request.get_json()
+        print("Registration data received:", data)  # Debug log
+
+        # Check if user already exists
+        if User.query.filter_by(username=data['username']).first():
+            return jsonify({'error': 'Username already exists'}), 400
+        if User.query.filter_by(email=data['email']).first():
+            return jsonify({'error': 'Email already exists'}), 400
+
+        # Create new user
+        user = User(
+            username=data['username'],
+            email=data['email'],
+            role=data['role'].lower()
+        )
+        user.set_password(data['password'])
         
-    if User.query.filter_by(email=data['email']).first():
-        return jsonify({'error': 'Email already exists'}), 409
-    
-    user = User(
-        username=data['username'],
-        email=data['email']
-    )
-    user.set_password(data['password'])
-    
-    db.session.add(user)
-    db.session.commit()
-    
-    return jsonify({'message': 'User created successfully'}), 201
+        db.session.add(user)
+        db.session.commit()
+
+        print(f"User {user.username} registered successfully")  # Debug log
+        return jsonify({'message': 'User created successfully'}), 201
+
+    except Exception as e:
+        print("Registration error:", str(e))  # Debug log
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
-    
-    if user and user.check_password(data['password']):
-        access_token = create_access_token(identity=user.id)
-        refresh_token = create_refresh_token(identity=user.id)
-        return jsonify({
-            'access_token': access_token,
-            'refresh_token': refresh_token
-        }), 200
-    
-    return jsonify({'error': 'Invalid credentials'}), 401
+    try:
+        data = request.get_json()
+        print("Login attempt for user:", data.get('username'))  # Debug log
 
-@auth_bp.route('/refresh', methods=['POST'])
-@jwt_required(refresh=True)
-def refresh():
-    identity = get_jwt_identity()
-    access_token = create_access_token(identity=identity)
-    return jsonify({'access_token': access_token}), 200
+        user = User.query.filter_by(username=data['username']).first()
+        
+        if user and user.check_password(data['password']):
+            access_token = create_access_token(identity=user.id)
+            print(f"Login successful for user {user.username}")  # Debug log
+            return jsonify({
+                'access_token': access_token,
+                'username': user.username,
+                'role': user.role
+            }), 200
+        
+        print("Invalid credentials for user:", data.get('username'))  # Debug log
+        return jsonify({'error': 'Invalid credentials'}), 401
+        
+    except Exception as e:
+        print("Login error:", str(e))  # Debug log
+        return jsonify({'error': str(e)}), 500
