@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>GeniusMinds - Performance Report</title>
+
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <!--Js Chart link-->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+
+
+   <link rel="stylesheet" href="assets/css/dashboard.css">
+   <link rel="icon" href="assets/images/bulb-removebg-preview.png">
+
+
+</head>
+<body>
+
+<header class="header">
+   <section class="flex">
+      <img src="assets/images/GeniusMinds_Logo_3.png" class="logo" alt="">
+      <form action="#" method="post" class="search-form">
+         <input type="text" name="search_box" required placeholder="Search...." maxlength="100">
+         <button type="submit" class="fas fa-search"></button>
+      </form>
+
+      <div class="icons">
+         <div id="menu-btn" class="fas fa-bars"></div>
+         <div id="search-btn" class="fas fa-search"></div>
+         <div id="user-btn" class="fas fa-user"></div>
+         <div id="toggle-btn" class="fas fa-sun"></div>
+      </div>
+
+      <div class="profile">
+         <h3 class="name">John Doe</h3>
+         <p class="role">Parent</p>
+         <a href="profile.html" class="btn">view profile</a>
+         <div class="flex-btn">
+            <a href="#" class="option-btn">login</a>
+            <a href="register.html" class="option-btn">register</a>
+         </div>
+      </div>
+
+   </section>
+
+</header>   
+
+<div class="side-bar">
+
+   <div id="close-btn">
+      <i class="fas fa-times"></i>
+   </div>
+
+   <div class="profile">
+      <h3 class="name">John Doe</h3>
+      <p class="role">Parent</p>
+   </div>
+
+   <nav class="navbar">
+      <a href="index1.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+      <a href="overview.html"><i class="fas fa-question"></i><span>Overview</span></a>
+      <a href="performance test.html"><i class="fa-solid fa-chart-simple"></i><span>Performance Report</span></a>
+      <a href="contact.html"><i class="fa-solid fa-headset"></i><span>Contact Us</span></a>
+      <a href="#"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+   </nav>
+</div>
+
+<div class="graphBox">
+    <div class="box">
+        <h2>Subject Peformance</h2>
+        <canvas id="subject performance chart"></canvas>
+    </div>
+    <div class="box">
+        <h2>Weekly Performance</h2>
+        <canvas id="weekly performance"></canvas>
+    </div>
+    <div class="box">
+        <h2>Leaderboard Ranking</h2>
+        <canvas id="Leaderboard Ranking"></canvas>
+    </div>
+    <div class="box">
+        <h2>Monthly Performance</h2>
+        <canvas id="monthly performance"></canvas>
+    </div>
+</div>
+
+
+
+
+<script src="assets/js/dashboard-chart.js" defer></script>
+
+</body>
+</html>
