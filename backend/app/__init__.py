@@ -30,7 +30,7 @@ def create_app(config_class=Config):
     db.init_app(app)
     jwt.init_app(app)
 
-    # Register blueprints
+    # Registering blueprints
     from .routes.auth import auth_bp
     from .routes.api import api_bp
     
