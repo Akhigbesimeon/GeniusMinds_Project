@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h2 class="score">Score: <span id="score">0</span></h2>
+        
+        <div class="card" id="question-card">
+            <h3 id="question-text">Loading question...</h3>
+            
+            <div class="options">
+                <button class="option-btn" onclick="checkAnswer(0)">Option 1</button>
+                <button class="option-btn" onclick="checkAnswer(1)">Option 2</button>
+                <button class="option-btn" onclick="checkAnswer(2)">Option 3</button>
+                <button class="option-btn" onclick="checkAnswer(3)">Option 4</button>
+            </div>
+        </div>
+
+        <button id="next-btn" onclick="nextQuestion()">Next</button>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
