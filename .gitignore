@@ -95,9 +95,9 @@ desktop.ini
 *.gz
 
 # Node (if you add any JavaScript build tools later)
-node_modules/
-package-lock.json
-yarn.lock
+#node_modules/
+#package-lock.json
+#yarn.lock
 
 # Flask
 instance/
