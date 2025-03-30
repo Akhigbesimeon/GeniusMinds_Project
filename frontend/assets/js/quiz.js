@@ -51,3 +51,49 @@ function nextQuestion() {
 }
 
 loadQuestion();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const quizGameBtn = document.getElementById("quizGameBtn");
+    const quizModal = document.getElementById("quizModal");
+    const difficultyModal = document.getElementById("difficultyModal");
+    const closeModalBtns = document.querySelectorAll(".close-modal");
+    
+    let selectedSubject = "";
+
+    // Open subject selection modal
+    quizGameBtn.addEventListener("click", () => {
+        quizModal.style.display = "flex";
+    });
+
+    // Handle subject selection
+    document.querySelectorAll(".subjectBtn").forEach(btn => {
+        btn.addEventListener("click", function() {
+            selectedSubject = this.getAttribute("data-subject");
+            quizModal.style.display = "none"; // Hide subject modal
+            difficultyModal.style.display = "flex"; // Show difficulty modal
+        });
+    });
+
+    // Handle difficulty selection and navigate to quiz.html
+    document.querySelectorAll(".difficultyBtn").forEach(btn => {
+        btn.addEventListener("click", function() {
+            let selectedDifficulty = this.getAttribute("data-difficulty");
+            window.location.href = quiz.html?subject=${selectedSubject}&difficulty=${selectedDifficulty};
+        });
+    });
+
+    // Close modals when clicking the close button
+    closeModalBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            quizModal.style.display = "none";
+            difficultyModal.style.display = "none";
+        });
+    });
+
+    // Close modals when clicking outside the content
+    window.onclick = function(event) {
+        if (event.target === quizModal) quizModal.style.display = "none";
+        if (event.target === difficultyModal) difficultyModal.style.display = "none";
+    };
+});
