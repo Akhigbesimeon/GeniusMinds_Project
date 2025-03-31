@@ -50,7 +50,7 @@
     <script>
         // System Configuration
         const SYSTEM_INFO = {
-            CURRENT_TIME: '2025-03-16 11:26:00',
+            CURRENT_TIME: '2025-03-31 18:26:00',
             CURRENT_USER: 'Miranics'
         };
 
@@ -112,7 +112,7 @@
                     localStorage.setItem('login_time', SYSTEM_INFO.CURRENT_TIME);
                     
                     console.log('Login successful, redirecting...');
-                    window.location.href = '/dashboard.html';
+                    window.location.href = '/dashboard-home.html';
                 } else {
                     throw new Error('Invalid response from server');
                 }
