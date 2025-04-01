@@ -10,25 +10,30 @@ from datetime import datetime
 pymysql.install_as_MySQLdb()
 
 # Initialize extensions
-db = SQLAlchemy()
 jwt = JWTManager()
 
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sql7770662:9yyBpNVgHZ@sql7.freesqldatabase.com:3306/sql7770662'
+
+db = SQLAlchemy(app)
+
 def create_app(config_class=Config):
-    app = Flask(__name__)
-    app.config.from_object(config_class)
+    app.config.from_object(Config)
+
 
     # Initialize CORS with settings
     CORS(app, resources={
         r"/*": {
-            "origins": app.config['CORS_ORIGINS'],
+            "origins": config_class.CORS_ORIGINS,
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-            "allow_headers": ["Content-Type", "Authorization"]
+            "allow_headers": ["Content-Type", "Authorization"],
+            "supports_credentials": True
         }
     })
 
     # Initialize Flask extensions
-    db.init_app(app)
     jwt.init_app(app)
+    app.config['JWT_VERIFY_SUB'] = False
 
     # Registering blueprints
     from .routes.auth import auth_bp

@@ -15,9 +15,10 @@ class Config:
     
     # JWT settings
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'GeniusMinds_JWT_8f4c16b290fd86c39e190a62c11a8c59')
-    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=365)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
+    JWT_VERIFY_SUB = False
 
     # CORS settings 
     CORS_HEADERS = 'Content-Type'
-    CORS_ORIGINS = ["http://127.0.0.1:5500", "http://localhost:5500"]  # frontend URL
+    CORS_ORIGINS = ["http://127.0.0.1:5500", "http://localhost:5500", "http://127.0.0.1:5173", "http://localhost:5173"]  # frontend URL

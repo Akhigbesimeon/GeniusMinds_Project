@@ -32,6 +32,7 @@ def register():
         return jsonify({'message': 'User created successfully'}), 201
 
     except Exception as e:
+        print(request.__dict__)
         print("Registration error:", str(e))  # Debug log
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
@@ -40,20 +41,20 @@ def register():
 def login():
     try:
         data = request.get_json()
-        print("Login attempt for user:", data.get('username'))  # Debug log
+        print("Login attempt for user:", data.get('email'))  # Debug log
 
-        user = User.query.filter_by(username=data['username']).first()
+        user = User.query.filter_by(email=data['email']).first()
         
         if user and user.check_password(data['password']):
             access_token = create_access_token(identity=user.id)
-            print(f"Login successful for user {user.username}")  # Debug log
+            print(f"Login successful for user {user.email}")  # Debug log
             return jsonify({
                 'access_token': access_token,
-                'username': user.username,
+                'email': user.email,
                 'role': user.role
             }), 200
         
-        print("Invalid credentials for user:", data.get('username'))  # Debug log
+        print("Invalid credentials for user:", data.get('email'))  # Debug log
         return jsonify({'error': 'Invalid credentials'}), 401
         
     except Exception as e:
