@@ -36,7 +36,9 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
         .then((response) => setUser(response.data));
     }, [])
 
-    if(user.role == 'student') {
+    const role = localStorage.getItem('role');
+
+    if(role == 'student') {
       var navigation = [
           { name: 'Dashboard', href: '/', icon: Home, current: window.location.href == '/' },
           { name: 'Quizzes', href: '/quizzes', icon: BookText, current: window.location.href.includes('quiz') },
@@ -92,7 +94,7 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
                   {user?.username ? user.username[0].toUpperCase() : null}
                 </div>
                 <h3 className="mt-3 text-xl font-medium text-gray-900">{user.username}</h3>
-                <p className="text-sm font-medium text-gray-900 text-indigo-600">{user?.role?.toUpperCase()}</p>
+                <p className="text-sm font-medium text-gray-900 text-indigo-600">{role?.toUpperCase()}</p>
                 <div className="mt-3 text-sm text-indigo-600 font-medium">View Profile</div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, BookOpen } from 'lucide-react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +30,7 @@ const LoginPage = () => {
         );
         if(response.status == 200) {
             localStorage.setItem('access_token', response.data.access_token);
+            localStorage.setItem('role', response.data.role);
             goTo('/');
         }
     }

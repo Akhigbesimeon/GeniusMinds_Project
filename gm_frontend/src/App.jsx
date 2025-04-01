@@ -7,13 +7,15 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import QuizManagementPage from './pages/QuizManagementPage';
 import FlashcardManagementPage from './pages/FlashcardManagementPage';
+import { StudentQuizList, StudentQuizPage } from './pages/StudentQuizList';
 
 function App() {
   return (
     <Router>
       <Routes>
       <Route path='/' element={<DashboardPage />} />
-      <Route path='/quizzes' element={<QuizPage />}/>
+      <Route path='/quizzes' element={<StudentQuizList />}/>
+      <Route path='/quiz/:quizId' element={<StudentQuizPage />}/>
       <Route path='/login' element={<LoginPage />}/>
       <Route path='/register' element={<RegisterPage />}/>
       <Route path='/manage/quiz' element={<QuizManagementPage />}/>

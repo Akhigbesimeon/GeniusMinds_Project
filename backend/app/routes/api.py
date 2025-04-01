@@ -43,6 +43,63 @@ def get_quizzes():
         result.append(quiz_obj)
     return jsonify(result), 200
 
+@api_bp.route('/quiz/<int:quiz_id>', methods=['GET'])
+@jwt_required()
+def get_individual_quiz(quiz_id):
+    quiz = Quiz.query.get(quiz_id)
+    result = []
+    quiz_obj = {'id': quiz.id,
+    'title': quiz.title,
+    'description': quiz.description,
+    'difficulty_level': quiz.difficulty_level,
+    'points': quiz.points
+    }
+    questions = Question.query.filter_by(quiz_id=quiz.id).all()
+    quest_list = []
+
+    for question in questions:
+        options = QuestionOption.query.filter_by(question_id=question.id).all()
+        quest_list.append({"question_id":question.id, "question_text": question.question_text, "options": [{"option_text":option.option_text} for option in options]})
+
+    quiz_obj["questions"] = [quest_list]
+    return jsonify(quiz_obj), 200
+
+@api_bp.route('/quizzes/<int:quiz_id>/submit', methods=['POST'])
+@jwt_required()
+def grade_quiz(quiz_id):
+    user_id = get_jwt_identity()
+    data = request.get_json()
+    user_answers = data.get('answers', {})
+
+    quiz = Quiz.query.get(quiz_id)
+    if not quiz:
+        return jsonify({'error': 'Quiz not found'}), 404
+
+    total_questions = len(quiz.questions)
+    correct_count = 0
+
+    for question in quiz.questions:
+        user_answer = user_answers.get(str(question.id))
+        if user_answer:
+            correct_option = QuestionOption.query.filter_by(
+                question_id=question.id, option_text=question.correct_answer
+            ).first()
+            if correct_option and user_answer == correct_option.option_text:
+                correct_count += 1
+
+    score = correct_count
+    percentage = (correct_count / total_questions) * 100 if total_questions > 0 else 0
+    
+    feedback = "Great job!" if percentage >= 80 else "Keep practicing!"
+    
+    return jsonify({
+        'score': (quiz.points * percentage) / 100,
+        'total': total_questions,
+        'percentage': percentage,
+        'feedback': feedback
+    })
+
+
 @api_bp.route('/add-quiz', methods=['POST'])
 @jwt_required()
 def add_quiz():
