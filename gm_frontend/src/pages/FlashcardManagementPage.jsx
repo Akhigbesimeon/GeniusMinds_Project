@@ -298,7 +298,7 @@ const FlashcardManagementPage = () => {
                               {set.category.charAt(0).toUpperCase() + set.category.slice(1)}
                             </span>
                             <span className="text-gray-500 text-sm">
-                              {set.cards ? set.cards.length : 0} cards
+                              {set.flashcards ? set.flashcards.length : 0} cards
                             </span>
                             <span className="flex items-center text-gray-600 text-sm">
                               {set.is_public ? (
@@ -340,9 +340,9 @@ const FlashcardManagementPage = () => {
                         {expandedSet === set.id && (
                           <div className="mt-4 pl-8">
                             <h4 className="text-sm font-medium text-gray-700 mb-2">Flashcards:</h4>
-                            {set.cards && set.cards.length > 0 ? (
+                            {set.flashcards && set.flashcards.length > 0 ? (
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                {set.cards.map((card, index) => (
+                                {set.flashcards.map((card, index) => (
                                   <div key={card.id} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                                     <div className="flex justify-between mb-2">
                                       <span className="font-medium text-gray-600">Card {index + 1}</span>
@@ -373,7 +373,7 @@ const FlashcardManagementPage = () => {
                                     
                                     {card.tags && card.tags.length > 0 && (
                                       <div className="mt-2 flex flex-wrap gap-1">
-                                        {card.tags.map((tag, i) => (
+                                        {card.tags.split(",").map((tag, i) => (
                                           <span key={i} className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
                                             <Tag className="h-3 w-3 mr-1" />
                                             {tag}

@@ -143,7 +143,7 @@ import {
       if (window.confirm('Are you sure you want to delete this question?')) {
         try {
           await axios.delete(
-            `${import.meta.env.VITE_API_URL}/api/quizzes/${quizId}/questions/${questionId}`, 
+            `${import.meta.env.VITE_API_URL}/api/question/${questionId}`, 
             { 
               headers: {
                 'Authorization': `Bearer ${localStorage.getItem('access_token')}`,

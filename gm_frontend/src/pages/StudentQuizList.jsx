@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../components/SideBar';
 import { TopBar } from '../components/TopBar';
+import { Menu, Search } from 'lucide-react';
 
 export const StudentQuizList = () => {
     const [quizzes, setQuizzes] = useState([]);
@@ -33,6 +34,14 @@ export const StudentQuizList = () => {
         navigate(`/quiz/${quizId}`);
     };
 
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const filteredQuizzes = quizzes.filter(quiz => 
+        quiz.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        quiz.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+
     if (loading) return <div className="text-center p-6">Loading quizzes...</div>;
     if (error) return <div className="text-red-500 p-6">{error}</div>;
 
@@ -43,16 +52,43 @@ export const StudentQuizList = () => {
               {/* Main Content */}
     <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Top Navigation */}
-        <TopBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+                <nav className="bg-white border-b border-gray-200 shadow-sm">
+                    <div className="px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between h-16">
+                            <div className="flex items-center">
+                                <button 
+                                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                                    className="p-2 rounded-md text-gray-500 hover:bg-gray-100"
+                                >
+                                    <Menu className="h-6 w-6" />
+                                </button>
+                            </div>
+                            
+                            {/* Add Search Bar */}
+                            <div className="flex items-center ml-4 lg:mx-auto">
+                                <div className="relative mx-4">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search quizzes..." 
+                                        className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-80"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
                 
         <div className="container mx-auto p-6">
             <h1 className="text-2xl font-bold mb-6">Available Quizzes</h1>
             
-            {quizzes.length === 0 ? (
+            {filteredQuizzes.length === 0 ? (
                 <p>No quizzes available at the moment.</p>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {quizzes.map((quiz) => (
+                    {filteredQuizzes.map((quiz) => (
                         <div 
                             key={quiz.id} 
                             className="border rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
@@ -129,7 +165,7 @@ export const StudentQuizPage = () => {
     };
 
     const handleNextQuestion = () => {
-        if (currentQuestionIndex < quiz.questions.length - 1) {
+        if (currentQuestionIndex < quiz.questions[0].length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         }
     };
@@ -198,7 +234,7 @@ export const StudentQuizPage = () => {
         );
     }
 
-    const currentQuestion = quiz.questions[currentQuestionIndex][0];
+    const currentQuestion = quiz.questions[0][currentQuestionIndex];
 
     return (
         <div className="flex h-screen bg-gray-50">
@@ -207,8 +243,21 @@ export const StudentQuizPage = () => {
               {/* Main Content */}
     <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Top Navigation */}
-        <TopBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-                
+        <nav className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <button 
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="p-2 rounded-md text-gray-500 hover:bg-gray-100"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      </nav>
 
         <div className="container mx-auto p-6 max-w-2xl">
             <h1 className="text-2xl font-bold mb-6">{quiz.title}</h1>
@@ -225,11 +274,11 @@ export const StudentQuizPage = () => {
                     <p className="text-gray-600">{quiz.description}</p>
                 </div>
                 <div className="mb-4">
-                    <p className="text-sm text-gray-500">Question {currentQuestionIndex + 1} of {quiz.questions.length}</p>
+                    <p className="text-sm text-gray-500">Question {currentQuestionIndex + 1} of {quiz.questions[0].length}</p>
                     <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
                         <div 
                             className="bg-blue-600 h-2 rounded-full" 
-                            style={{ width: `${((currentQuestionIndex + 1) / quiz.questions.length) * 100}%` }}
+                            style={{ width: `${((currentQuestionIndex + 1) / quiz.questions[0].length) * 100}%` }}
                         ></div>
                     </div>
                 </div>
@@ -263,7 +312,7 @@ export const StudentQuizPage = () => {
                     >
                         Previous
                     </button>
-                    {currentQuestionIndex < quiz.questions.length - 1 ? (
+                    {currentQuestionIndex < quiz.questions[0].length - 1 ? (
                         <button
                             onClick={handleNextQuestion}
                             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"

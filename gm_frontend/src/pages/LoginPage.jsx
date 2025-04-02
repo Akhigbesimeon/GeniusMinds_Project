@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, BookOpen } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { data, useNavigate } from 'react-router-dom';
 
@@ -31,7 +32,8 @@ const LoginPage = () => {
         if(response.status == 200) {
             localStorage.setItem('access_token', response.data.access_token);
             localStorage.setItem('role', response.data.role);
-            goTo('/');
+            if(response.data.role == 'student') goTo('/')
+            else goTo('/dashboard');
         }
     }
     catch (e) {
@@ -107,9 +109,7 @@ const LoginPage = () => {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Don't have an account?{' '}
-              <a href="#" className="text-indigo-600 hover:text-indigo-800 font-medium">
-                Sign up
-              </a>
+              <Link to={"/register"}>Sign Up</Link>
             </p>
           </div>
         </div>

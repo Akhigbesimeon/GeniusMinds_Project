@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { 
     BookOpen, 
-    Brain, 
-    Award, 
-    BarChart, 
-    Clock, 
-    Star, 
-    Trophy, 
     LogOut,
     Search,
     Bell,
@@ -23,7 +17,7 @@ import {
 import { useEffect } from "react";
 import axios from "axios";
 
-  
+
 
 const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
     const [user, setUser] = useState({});
@@ -40,16 +34,14 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
 
     if(role == 'student') {
       var navigation = [
-          { name: 'Dashboard', href: '/', icon: Home, current: window.location.href == '/' },
+          { name: 'Dashboard', href: '/', icon: Home, current: window.location.pathname.length < 2 },
           { name: 'Quizzes', href: '/quizzes', icon: BookText, current: window.location.href.includes('quiz') },
           { name: 'Flashcards', href: '/flashcards', icon: Layers, current: window.location.href.includes('flashcards') },
-          { name: 'Settings', href: '/settings', icon: Settings, current: false },
-          { name: 'Help', href: '/help', icon: HelpCircle, current: false },
       ];
     }
     else {
       navigation = [
-        { name: 'Dashboard', href: '/', icon: Home, current: window.location.href == '/' },
+        { name: 'Dashboard', href: '/dashboard', icon: Home, current: window.location.href.includes('dashboard') },
         { name: 'Manage Quizzes', href: '/manage/quiz', icon: BookText, current: window.location.href.includes('quiz') },
         { name: 'Manage Flashcards', href: '/manage/flashcards', icon: Layers, current: window.location.href.includes('flashcards') },
       ]
@@ -72,7 +64,7 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
   
         {/* Sidebar */}
         <div 
-          className={`fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen ${sidebarOpen ? 'hidden' : ''}`}
         >
           <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
             <div className="flex items-center">
@@ -95,7 +87,6 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
                 </div>
                 <h3 className="mt-3 text-xl font-medium text-gray-900">{user.username}</h3>
                 <p className="text-sm font-medium text-gray-900 text-indigo-600">{role?.toUpperCase()}</p>
-                <div className="mt-3 text-sm text-indigo-600 font-medium">View Profile</div>
               </div>
             </div>
             
