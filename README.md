@@ -10,22 +10,29 @@ Interactive Quizzes and challenges: implementation of engaging quiz-base learnin
 
 Basic user Authentication: Simple login/logout system for students, teachers, and parents 
 
-Content Management: Ability for educators to add, update and manage quizzes and learning content 
+Content Management: Ability for educators to add, update, and manage quizzes and learning content 
 
 Parent/Educator Dashboard: A personalized dashboard for tracking progress and rewards 
 
 # System Design 
 # Technology Stack
 Frontend: React, CSS, Javascript, React.js
+
 Backend: Python
+
 Database: MYSQL
+
 Framework: Flask
+
 Authentication: JWT (JSON Web Tokens)
 
 # Team Members
 Glory Paul
+
 Lorita Sesame Icyeza
+
 Akhigbe Simeon
+
 Nanen Miracle Mbanaade
 
 
